@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/vapor/crypto.git",
         "state": {
           "branch": null,
-          "revision": "e7b51ee4d46723734891ca904a4ab6b5f9e26959",
-          "version": "3.1.0"
+          "revision": "346ae2b2ea65a4b6f4985a8e8cb25cf61da549d8",
+          "version": "3.1.1"
         }
       },
       {
@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "Leaf",
+        "repositoryURL": "https://github.com/vapor/leaf.git",
+        "state": {
+          "branch": null,
+          "revision": "8cc35dcfcd8f9ed142a954f70431a05e866ca040",
+          "version": "3.0.0-rc.2.1.2"
+        }
+      },
+      {
         "package": "Multipart",
         "repositoryURL": "https://github.com/vapor/multipart.git",
         "state": {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/vapor/routing.git",
         "state": {
           "branch": null,
-          "revision": "0ace2ad08dc763f5e0989d1cd199aa3c2f90e747",
-          "version": "3.0.0"
+          "revision": "3219e328491b0853b8554c5a694add344d2c6cfb",
+          "version": "3.0.1"
         }
       },
       {
@@ -150,8 +159,8 @@
         "repositoryURL": "https://github.com/vapor/template-kit.git",
         "state": {
           "branch": null,
-          "revision": "497b987a79291c3743fe4ba6f17eadcdf20c1728",
-          "version": "1.0.0"
+          "revision": "43b57b5861d5181b906ac6411d28645e980bb638",
+          "version": "1.0.1"
         }
       },
       {
@@ -177,8 +186,8 @@
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "9a605f792fcfee1f3b2b7c2dfbb6f9c5982ac64b",
-          "version": "3.0.0-rc.2.8"
+          "revision": "c834f9495ff5ab9768b74f5822ff23d795e36922",
+          "version": "3.0.0-rc.2.8.1"
         }
       },
       {
