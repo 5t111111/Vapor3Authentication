@@ -1,5 +1,6 @@
-import FluentSQLite
 import Vapor
+import Leaf
+import FluentSQLite
 
 /// Called before your application initializes.
 ///
@@ -27,5 +28,6 @@ public func configure(
     services.register(databases)
 
     var migrations = MigrationConfig()
+    migrations.add(model: User.self, database: .sqlite)
     services.register(migrations)
 }
