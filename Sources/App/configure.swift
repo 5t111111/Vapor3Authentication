@@ -9,8 +9,23 @@ public func configure(
     _ env: inout Environment,
     _ services: inout Services
 ) throws {
-    /// Register routes to the router
+    // Register routes to the router
     let router = EngineRouter.default()
     try routes(router)
     services.register(router, as: Router.self)
+
+    let myService = EngineServerConfig.default(port: 8000)
+    services.register(myService)
+
+    try services.register(LeafProvider())
+    try services.register(FluentSQLiteProvider())
+
+    config.prefer(LeafRenderer.self, for: TemplateRenderer.self)
+
+    var databases = DatabasesConfig()
+    try databases.add(database: SQLiteDatabase(storage: .memory), as: .sqlite)
+    services.register(databases)
+
+    var migrations = MigrationConfig()
+    services.register(migrations)
 }
