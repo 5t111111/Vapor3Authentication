@@ -22,13 +22,42 @@ final class UserController {
 
     func show(_ req: Request) throws -> Future<View> {
         let id = try req.parameters.next(Int.self)
-        let userFuture = try User.find(id, on: req)
-        return userFuture.flatMap(to: View.self) { user in
-            guard let unWrappedUser = user else {
-                throw Abort(.badRequest, reason: "User is not found")
+        return try User.find(id, on: req).flatMap(to: View.self) { user in
+            guard let user = user else {
+                throw Abort(.notFound, reason: "Could not find user.")
             }
-            let data = ["user": unWrappedUser]
+            let data = ["user": user]
             return try req.view().render("users/show", data)
+        }
+    }
+
+    func edit(_ req: Request) throws -> Future<View> {
+        let id = try req.parameters.next(Int.self)
+        return try User.find(id, on: req).flatMap(to: View.self) { user in
+            guard let user = user else {
+                throw Abort(.notFound, reason: "Could not find user.")
+            }
+            let data = ["user": user]
+            return try req.view().render("users/edit", data)
+        }
+    }
+
+    func update(_ req: Request) throws -> Future<User> {
+        let userToUpdate = try req.content.decode(User.self)
+        let id = try req.parameters.next(Int.self)
+        return try User.find(id, on: req).map(to: User.self) { user in
+            guard let user = user else {
+                throw Abort(.notFound, reason: "Could not find user.")
+            }
+            return user
+        }.flatMap(to: User.self) { user in
+            return userToUpdate.flatMap(to: User.self) { u in
+                user.email = u.email
+                user.password = u.password
+                return user.update(on: req).map(to: User.self) { _ in
+                    return user
+                }
+            }
         }
     }
 }
