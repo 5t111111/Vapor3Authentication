@@ -1,13 +1,16 @@
 import Vapor
 import FluentSQLite
+import Authentication
 
 final class User: SQLiteModel {
     var id: Int?
-    var username: String
+    var email: String
+    var password: String
 
-    init(id: Int? = nil, username: String) {
+    init(id: Int? = nil, email: String, password: String) {
         self.id = id
-        self.username = username
+        self.email = email
+        self.password = password
     }
 }
 
