@@ -1,6 +1,7 @@
 import Vapor
 import Leaf
 import FluentSQLite
+import Authentication
 
 /// Called before your application initializes.
 ///
@@ -30,4 +31,6 @@ public func configure(
     var migrations = MigrationConfig()
     migrations.add(model: User.self, database: .sqlite)
     services.register(migrations)
+
+    try services.register(AuthenticationProvider())
 }
