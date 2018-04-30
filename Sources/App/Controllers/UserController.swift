@@ -43,17 +43,20 @@ final class UserController {
     }
 
     func update(_ req: Request) throws -> Future<User> {
-        let userToUpdate = try req.content.decode(User.self)
-        let id = try req.parameters.next(Int.self)
-        return try User.find(id, on: req).map(to: User.self) { user in
-            guard let user = user else {
-                throw Abort(.notFound, reason: "Could not find user.")
-            }
-            return user
-        }.flatMap(to: User.self) { user in
-            return userToUpdate.flatMap(to: User.self) { u in
-                user.email = u.email
-                user.password = u.password
+        return try req.content.decode(User.self).flatMap(to: User.self) { decodedUser in
+            let id = try req.parameters.next(Int.self)
+            return try User.find(id, on: req).map(to: User.self) { user in
+                guard let user = user else {
+                    throw Abort(.notFound, reason: "Could not find user.")
+                }
+                return user
+            }.flatMap(to: User.self) { user in
+                if !decodedUser.email.isEmpty {
+                    user.email = decodedUser.email
+                }
+                if !decodedUser.password.isEmpty {
+                    user.password = decodedUser.password
+                }
                 return user.update(on: req).map(to: User.self) { _ in
                     return user
                 }
